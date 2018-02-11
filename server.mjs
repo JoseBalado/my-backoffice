@@ -9,7 +9,6 @@ app.set('trust proxy', 1) // trust first proxy
 app.use(cookieSession({
   name: 'session',
   secret: 'cookie-secret',
-  sameSite: 'lax',
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
 
