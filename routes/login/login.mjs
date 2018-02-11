@@ -16,14 +16,26 @@ const createToken = function (user) {
 }
 
 router.get('/', function (req, res, next) {
-  req.session.views = (req.session.views || 0) + 1
-  const token = createToken(user)
-  req.session.token = token
-  res.end('you are logged:' + req.session.views + 'views')
+  if (req.session) {
+    req.session.views = (req.session.views || 0) + 1
+    res.end('you are logged:' + req.session.views + 'views')
+  } else {
+    res.end('You are not logged')
+  }
 })
 
 router.post('/', function (req, res, next) {
-  res.end('post request received')
+  console.log('post request values: ', req.body)
+  if (req.body.username === user.name && req.body.password === user.password) {
+    const token = createToken(user)
+    // add token to the cookie
+    req.session.token = token
+    res.send('You are logged')
+  } else {
+    // Destroy the session
+    req.session = null
+    res.send('Login not authorized')
+  }
 })
 
 export default router

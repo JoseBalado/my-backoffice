@@ -1,8 +1,12 @@
 import express from 'express'
 import cookieSession from 'cookie-session'
+import bodyParser from 'body-parser'
 import routes from './routes/routes'
 
 const app = express()
+
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.set('trust proxy', 1) // trust first proxy
 
