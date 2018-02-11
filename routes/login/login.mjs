@@ -15,7 +15,7 @@ const createToken = function (user) {
   return token
 }
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   if (req.session) {
     req.session.views = (req.session.views || 0) + 1
     res.end('you are logged:' + req.session.views + 'views')
@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
   }
 })
 
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
   console.log('post request values: ', req.body)
   if (req.body.username === user.name && req.body.password === user.password) {
     const token = createToken(user)
