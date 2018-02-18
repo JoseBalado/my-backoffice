@@ -3,8 +3,9 @@ import login from './login/login'
 
 const router = express.Router()
 
-router.get('/api', function (req, res, next) {
+router.get('/stats', function (req, res) {
   // Update views
+  console.log('Token', req.session.token)
   req.session.views = (req.session.views || 0) + 1
 
   // Write response
